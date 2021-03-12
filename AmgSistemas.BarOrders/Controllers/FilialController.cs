@@ -23,7 +23,7 @@ namespace AmgSistemas.BarOrders.Controllers
             try
             {
                 Models.RetornoGenerico objRetorno = new Models.RetornoGenerico();
-
+                
                 objRetorno.retorno = _filialServices.Buscar(id);
                 objRetorno.codigo = 0;
 

@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace AmgSistemas.BarOrders.Models
 {
-    public class RetornoGenerico
+    public class GrupoProduto
     {
-        public int codigo { get; set; }
+        public string identificador { get; set; }
+        public string codigo { get; set; }
         public string descricao { get; set; }
-        public object retorno { get; set; }
-        
+        public List<GrupoProduto> gruposProdutos { get; set; }
+
     }
 }

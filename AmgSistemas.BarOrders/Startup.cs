@@ -15,6 +15,8 @@ namespace AmgSistemas.BarOrders
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,6 +29,19 @@ namespace AmgSistemas.BarOrders
         {
             services.AddScoped<Interfaces.IProdutoFilialRepository, Repository.ProdutoFilialRepository>();
             services.AddScoped<Interfaces.IProdutoFilialServices, Services.ProdutoFilialServices>();
+            services.AddScoped<Interfaces.IFilialRepository, Repository.FilialRepository>();
+            services.AddScoped<Interfaces.IFilialServices, Services.FilialServices>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                                  });
+            });
+
+           
 
             services.AddControllers();
         }
@@ -44,6 +59,8 @@ namespace AmgSistemas.BarOrders
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseEndpoints(endpoints =>
             {

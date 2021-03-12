@@ -10,7 +10,7 @@ namespace AmgSistemas.BarOrders.Repository
     {
         public ProdutoFilial Buscar(string codigoFilial, string codigoEmpresa)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }
