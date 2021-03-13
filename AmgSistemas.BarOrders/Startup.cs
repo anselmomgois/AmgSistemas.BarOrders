@@ -28,9 +28,12 @@ namespace AmgSistemas.BarOrders
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<Interfaces.IProdutoFilialRepository, Repository.ProdutoFilialRepository>();
-            services.AddScoped<Interfaces.IProdutoFilialServices, Services.ProdutoFilialServices>();
+            services.AddScoped<Interfaces.IGrupoProdutoRepository, Repository.GrupoProdutoRepository>();
             services.AddScoped<Interfaces.IFilialRepository, Repository.FilialRepository>();
-            services.AddScoped<Interfaces.IFilialServices, Services.FilialServices>();
+
+            services.AddScoped<Interfaces.IProdutoFilialServices, Services.ProdutoFilialServices>();            
+            services.AddScoped<Interfaces.IFilialServices, Services.FilialServices>();            
+            services.AddScoped<Interfaces.IGrupoProdutoServices, Services.GrupoProdutoServices>();
 
             services.AddCors(options =>
             {

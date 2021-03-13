@@ -10,6 +10,7 @@ namespace AmgSistemas.BarOrders.BD.Models
         public string ID_EMPRESA { get; set; }
         public string COD_EMPRESA { get; set; }
         public string DES_EMPRESA { get; set; }
+        public byte[] BOL_IMAGEM { get; set; }
         public bool BOL_ACTIVO { get; set; }
         public DateTime DTH_REGISTRO { get; set; }
     }

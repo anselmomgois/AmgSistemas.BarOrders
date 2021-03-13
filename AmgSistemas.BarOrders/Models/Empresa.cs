@@ -12,5 +12,6 @@ namespace AmgSistemas.BarOrders.Models
         public string codigo { get; set; }
 
         public string descricao { get; set; }
+        public byte[] logo { get; set; }
     }
 }

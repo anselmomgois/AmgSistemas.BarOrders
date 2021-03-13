@@ -19,10 +19,7 @@ namespace AmgSistemas.BarOrders.Services
         public Filial Buscar(string identificador)
         {
 
-            Models.Filial filial = _filialRepository.Buscar(identificador);
-
-
-            return filial;
+            return _filialRepository.Buscar(identificador);
         }
     }
 }

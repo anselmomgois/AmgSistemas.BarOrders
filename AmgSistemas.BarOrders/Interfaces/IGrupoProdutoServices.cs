@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace AmgSistemas.BarOrders.Interfaces
 {
-    interface IGrupoProdutoServices:IGeneric
+    public interface IGrupoProdutoServices:IGeneric
     {
 
-        List<Models.GrupoProduto> Buscar(string identificadorFilial);
+        List<Models.GrupoProduto> Buscar(string identificadorEmpresa);
     }
 }

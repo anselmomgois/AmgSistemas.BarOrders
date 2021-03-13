@@ -26,7 +26,9 @@ namespace AmgSistemas.BarOrders.Repository
                             {
                                 codigo = e.COD_EMPRESA,
                                 descricao = e.DES_EMPRESA,
-                                identificador = e.ID_EMPRESA
+                                identificador = e.ID_EMPRESA,
+                                logo = e.BOL_IMAGEM
+
                             }
                         }).FirstOrDefault();
             }
