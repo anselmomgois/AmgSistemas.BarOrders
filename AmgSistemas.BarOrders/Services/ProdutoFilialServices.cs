@@ -15,9 +15,9 @@ namespace AmgSistemas.BarOrders.Services
         {
             _produtoFilialRepository = produtoFilialRepository;
         }
-        public ProdutoFilial Buscar(string codigoEmpresa, string codigoFilial)
+        public List<Models.ProdutoFilial> Buscar(string idEmpresa, string idFilial)
         {
-            return _produtoFilialRepository.Buscar(codigoEmpresa, codigoFilial);
+            return _produtoFilialRepository.Buscar(idEmpresa,idFilial);
         }
     }
 }

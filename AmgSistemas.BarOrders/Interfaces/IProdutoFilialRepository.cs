@@ -7,6 +7,6 @@ namespace AmgSistemas.BarOrders.Interfaces
 {
     public interface IProdutoFilialRepository :IGeneric
     {
-        Models.ProdutoFilial Buscar(string idEmpresa, string idFilial);
+       List<Models.ProdutoFilial> Buscar(string idEmpresa, string idFilial);
     }
 }

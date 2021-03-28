@@ -11,5 +11,6 @@ namespace AmgSistemas.BarOrders.Models
         public string codigo { get; set; }
         public string descricao { get; set; }
         public string observacao { get; set; }
+        public byte[] imagem { get; set; }
     }
 }

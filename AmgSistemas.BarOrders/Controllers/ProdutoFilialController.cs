@@ -7,6 +7,8 @@ using AmgSistemas.BarOrders.Interfaces;
 
 namespace AmgSistemas.BarOrders.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ProdutoFilialController : ControllerBase
     {
         private readonly IProdutoFilialServices _produtoFilialServices;
@@ -24,12 +26,10 @@ namespace AmgSistemas.BarOrders.Controllers
             {
                 Models.RetornoGenerico objRetorno = new Models.RetornoGenerico();
 
-                if (!string.IsNullOrEmpty(idFilial) && !string.IsNullOrEmpty(idEmpresa))
-                {
 
-                    objRetorno.retorno = _produtoFilialServices.Buscar(idEmpresa, idFilial);
-                    objRetorno.codigo = 0;
-                }
+                objRetorno.retorno = _produtoFilialServices.Buscar(idEmpresa, idFilial);
+                objRetorno.codigo = 0;
+
                 return objRetorno;
             }
             catch (Exception ex)
