@@ -9,5 +9,6 @@ namespace AmgSistemas.BarOrders.Models
     {
         public decimal valor { get; set; }
         public decimal quantidade { get; set; }
+        
     }
 }

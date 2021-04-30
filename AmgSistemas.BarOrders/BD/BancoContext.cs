@@ -17,6 +17,8 @@ namespace AmgSistemas.BarOrders.BD
         public DbSet<Models.AGBO_PRODUTO> AGBO_PRODUTO { get; set; }
         public DbSet<Models.AGBO_TPRODUTO_FILIAL> AGBO_TPRODUTO_FILIAL { get; set; }
 
+        public DbSet<Models.AGBO_TMESA> AGBO_TMESA { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -55,6 +57,13 @@ namespace AmgSistemas.BarOrders.BD
                   {
                       eb.HasKey("ID_PRODUTO_FILIAL");
                   });
+
+            modelBuilder
+                 .Entity<Models.AGBO_TMESA>(eb =>
+                 {
+                     eb.HasKey("ID_MESA");
+                 });
+
 
         }
 
