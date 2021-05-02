@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AmgSistemas.BarOrders.Interfaces
 {
-   public  interface IMesaRepository : IGeneric
+    public interface IMesaServices:IGeneric
     {
         Models.Mesa Buscar(string identificador);
     }

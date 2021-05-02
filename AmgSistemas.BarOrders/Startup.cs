@@ -30,10 +30,12 @@ namespace AmgSistemas.BarOrders
             services.AddScoped<Interfaces.IProdutoFilialRepository, Repository.ProdutoFilialRepository>();
             services.AddScoped<Interfaces.IGrupoProdutoRepository, Repository.GrupoProdutoRepository>();
             services.AddScoped<Interfaces.IFilialRepository, Repository.FilialRepository>();
+            services.AddScoped<Interfaces.IMesaRepository, Repository.MesaRepository>();
 
             services.AddScoped<Interfaces.IProdutoFilialServices, Services.ProdutoFilialServices>();            
             services.AddScoped<Interfaces.IFilialServices, Services.FilialServices>();            
             services.AddScoped<Interfaces.IGrupoProdutoServices, Services.GrupoProdutoServices>();
+            services.AddScoped<Interfaces.IMesaServices, Services.MesaServices>();
 
             services.AddCors(options =>
             {

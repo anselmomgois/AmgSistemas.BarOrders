@@ -13,7 +13,8 @@ namespace AmgSistemas.BarOrders.BD.Models
         public string DES_FILIAL { get; set; }
         public bool BOL_ACTIVO { get; set; }
         public DateTime DTH_REGISTRO { get; set; }
-
+        public bool BOL_TRABALHA_POR_MESA { get; set; }
+        public bool BOL_SOLICITAR_TELEFONE { get; set; }
         public AGBO_TEMPRESA AGBO_TEMPRESA { get; set; }
     }
 }

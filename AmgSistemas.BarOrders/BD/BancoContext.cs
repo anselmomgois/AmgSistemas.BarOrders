@@ -19,6 +19,11 @@ namespace AmgSistemas.BarOrders.BD
 
         public DbSet<Models.AGBO_TMESA> AGBO_TMESA { get; set; }
 
+        public DbSet<Models.AGBO_TTIPO_FUNCIONARIO> AGBO_TTIPO_FUNCIONARIO { get; set; }
+        public DbSet<Models.AGBO_TFUNCIONARIO> AGBO_TFUNCIONARIO { get; set; }
+        public DbSet<Models.AGBO_TFILIAL_FUNCIONARIO> AGBO_TFILIAL_FUNCIONARIO { get; set; }
+        public DbSet<Models.AGBO_TMESA_ATENDENTE> AGBO_TMESA_ATENDENTE { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -62,6 +67,26 @@ namespace AmgSistemas.BarOrders.BD
                  .Entity<Models.AGBO_TMESA>(eb =>
                  {
                      eb.HasKey("ID_MESA");
+                 });  
+            modelBuilder
+                 .Entity<Models.AGBO_TTIPO_FUNCIONARIO>(eb =>
+                 {
+                     eb.HasKey("ID_TIPO_FUNCIONARIO");
+                 }); 
+            modelBuilder
+                 .Entity<Models.AGBO_TFUNCIONARIO>(eb =>
+                 {
+                     eb.HasKey("ID_FUNCIONARIO");
+                 });
+            modelBuilder
+                 .Entity<Models.AGBO_TFILIAL_FUNCIONARIO>(eb =>
+                 {
+                     eb.HasKey("ID_FILIAL_FUNCIONARIO");
+                 });  
+            modelBuilder
+                 .Entity<Models.AGBO_TMESA_ATENDENTE>(eb =>
+                 {
+                     eb.HasKey("ID_MESA_ATENDENTE");
                  });
 
 

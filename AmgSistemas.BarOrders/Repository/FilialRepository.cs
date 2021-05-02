@@ -22,6 +22,8 @@ namespace AmgSistemas.BarOrders.Repository
                             identificador = f.ID_FILIAL,
                             codigo = f.COD_FILIAL,
                             descricao = f.DES_FILIAL,
+                            solicitarTelefone = f.BOL_SOLICITAR_TELEFONE,
+                            trabalhaPorMesa = f.BOL_TRABALHA_POR_MESA,
                             empresa = new Empresa()
                             {
                                 codigo = e.COD_EMPRESA,
