@@ -38,6 +38,7 @@ namespace AmgSistemas.BarOrders
             services.AddScoped<Interfaces.IFilialServices, Services.FilialServices>();            
             services.AddScoped<Interfaces.IGrupoProdutoServices, Services.GrupoProdutoServices>();
             services.AddScoped<Interfaces.IMesaServices, Services.MesaServices>();
+            services.AddScoped<Interfaces.IPedidoServices, Services.PedidoServices>();
 
             services.AddCors(options =>
             {

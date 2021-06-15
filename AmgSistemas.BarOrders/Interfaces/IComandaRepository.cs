@@ -12,5 +12,7 @@ namespace AmgSistemas.BarOrders.Interfaces
         void FazerPedido(List<Models.ItemPedido> itemsPedido, string identificadorComanda);
 
         void FinalizarPedido();
+
+        string GerarCodigoComanda(string identificadorFilial)
     }
 }

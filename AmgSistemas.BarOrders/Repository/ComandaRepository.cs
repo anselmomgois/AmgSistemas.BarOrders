@@ -33,7 +33,7 @@ namespace AmgSistemas.BarOrders.Repository
         {
             if (objBD == null) objBD = new BD.BancoContext();
 
-           foreach(var item in itemsPedido)
+            foreach (var item in itemsPedido)
             {
                 objBD.AGBO_TITEM_COMANDA.Add(new BD.Models.AGBO_TITEM_COMANDA
                 {
@@ -50,6 +50,13 @@ namespace AmgSistemas.BarOrders.Repository
         {
             objBD.SaveChanges();
         }
-        
+
+        public string GerarCodigoComanda(string identificadorFilial)
+        {
+            BD.BancoContext _objBD = new BD.BancoContext();
+
+            
+        }
     }
+
 }

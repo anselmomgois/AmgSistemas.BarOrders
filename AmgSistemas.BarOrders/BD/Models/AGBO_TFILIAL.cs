@@ -15,6 +15,7 @@ namespace AmgSistemas.BarOrders.BD.Models
         public DateTime DTH_REGISTRO { get; set; }
         public bool BOL_TRABALHA_POR_MESA { get; set; }
         public bool BOL_SOLICITAR_TELEFONE { get; set; }
+        public string COD_PREFIXO_COMANDA { get; set; }
         public AGBO_TEMPRESA AGBO_TEMPRESA { get; set; }
     }
 }
