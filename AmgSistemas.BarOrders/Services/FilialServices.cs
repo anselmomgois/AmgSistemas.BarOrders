@@ -9,17 +9,21 @@ namespace AmgSistemas.BarOrders.Services
     public class FilialServices : Interfaces.IFilialServices
     {
         private readonly Interfaces.IFilialRepository _filialRepository;
+        private readonly Interfaces.IParametroRepository _parametroRepository;
 
-        public FilialServices(Interfaces.IFilialRepository filialRepository)
+        public FilialServices(Interfaces.IFilialRepository filialRepository, Interfaces.IParametroRepository parametroRepository)
         {
 
             _filialRepository = filialRepository;
+            _parametroRepository = parametroRepository;
         }
 
         public Filial Buscar(string identificador)
         {
-
-            return _filialRepository.Buscar(identificador);
+            var filial = _filialRepository.Buscar(identificador);
+            filial.parametros = _parametroRepository.Buscar(filial.empresa.identificador, identificador);
+           
+            return filial;
         }
     }
 }

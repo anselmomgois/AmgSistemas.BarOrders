@@ -13,6 +13,7 @@ namespace AmgSistemas.BarOrders.Interfaces
 
         void FinalizarPedido();
 
-        string GerarCodigoComanda(string identificadorFilial)
+        string GerarCodigoComanda(string identificadorFilial, string codigoPrefixo, string identificadorMesaAtendente, ref BD.BancoContext contexto);
+
     }
 }

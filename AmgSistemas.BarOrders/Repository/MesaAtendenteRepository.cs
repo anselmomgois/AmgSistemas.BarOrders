@@ -1,4 +1,5 @@
-﻿using AmgSistemas.BarOrders.Models;
+﻿using AmgSistemas.BarOrders.BD;
+using AmgSistemas.BarOrders.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,31 @@ namespace AmgSistemas.BarOrders.Repository
             }
 
             return new List<MesaAtendente>();
+        }
+
+        public string GerarAtendimento(string identificadorFuncionario, string identificadorMesa, string codigoChaveAcesso, ref BancoContext contexto)
+        {
+            BD.BancoContext bdContexto = contexto;
+            string identificador = Guid.NewGuid().ToString();
+
+            bdContexto.AGBO_TMESA_ATENDENTE.Add(new BD.Models.AGBO_TMESA_ATENDENTE
+            {
+                BOL_CORRENTE = true,
+                COD_CHAVE_ACESSO = codigoChaveAcesso,
+                DTH_REGISTRO = DateTime.Now,
+                ID_FUNCIONARIO = identificadorFuncionario,
+                ID_MESA = identificadorMesa,
+                ID_MESA_ATENDENTE = identificador
+            });
+
+            return identificador;
+        }
+
+        public string GerarChaveAcesso()
+        {
+           
+            Random chave = new Random();
+            return chave.Next(000001, 999999).ToString();
         }
     }
 }

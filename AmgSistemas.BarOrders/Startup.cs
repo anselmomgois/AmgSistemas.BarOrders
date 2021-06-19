@@ -33,6 +33,7 @@ namespace AmgSistemas.BarOrders
             services.AddScoped<Interfaces.IMesaRepository, Repository.MesaRepository>();
             services.AddScoped<Interfaces.IMesaAtendenteRepository, Repository.MesaAtendenteRepository>();
             services.AddScoped<Interfaces.IComandaRepository, Repository.ComandaRepository>();
+            services.AddScoped<Interfaces.IParametroRepository, Repository.ParametroRepository>();
 
             services.AddScoped<Interfaces.IProdutoFilialServices, Services.ProdutoFilialServices>();            
             services.AddScoped<Interfaces.IFilialServices, Services.FilialServices>();            

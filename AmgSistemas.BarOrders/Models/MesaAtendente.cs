@@ -12,5 +12,6 @@ namespace AmgSistemas.BarOrders.Models
         public string telefone { get; set; }
         public string codigoComanda { get; set; }
         public string nomeAtendente { get; set; }
+        public string codigoChaveAcesso { get; set; }
     }
 }

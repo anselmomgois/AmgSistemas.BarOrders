@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace AmgSistemas.BarOrders.Repository
 {
+
     public class ComandaRepository : Interfaces.IComandaRepository
     {
 
         private BD.BancoContext objBD = null;
+        private Int32 _tentativasGerarComanda = 0;
 
         public string AbrirComanda(Pedido pedido)
         {
@@ -51,12 +53,59 @@ namespace AmgSistemas.BarOrders.Repository
             objBD.SaveChanges();
         }
 
-        public string GerarCodigoComanda(string identificadorFilial)
+        public string GerarCodigoComanda(string identificadorFilial, string codigoPrefixo, string identificadorMesaAtendente, ref BD.BancoContext contexto)
         {
-            BD.BancoContext _objBD = new BD.BancoContext();
+            string codigo = string.Empty;
 
-            
+            try
+            {
+                try
+                {
+
+                    codigo = (from BD.Models.AGBO_TMESA_ATENDENTE ma in contexto.AGBO_TMESA_ATENDENTE
+                              where ma.ID_FILIAL == identificadorFilial
+                              select Convert.ToInt32(ma.COD_COMANDA)).Max().ToString();
+
+                    codigo = Convert.ToString(Convert.ToInt32(codigo) + 1).PadLeft(6);
+                }
+                catch
+                {
+                    codigo = "000001";
+                }
+
+                var mesaAtendente = (from BD.Models.AGBO_TMESA_ATENDENTE ma in contexto.AGBO_TMESA_ATENDENTE
+                                     where ma.ID_MESA_ATENDENTE == identificadorMesaAtendente
+                                     select ma).FirstOrDefault();
+
+                if (mesaAtendente != null)
+                {
+                    mesaAtendente.COD_COMANDA = codigo;
+                    contexto.SaveChanges();
+                }
+
+                if (!string.IsNullOrEmpty(codigoPrefixo))
+                {
+                    codigo = string.Format("{0}-{1}", codigoPrefixo, codigo);
+                }
+            }
+            catch(Exception ex)
+            {
+                _tentativasGerarComanda += 1;
+
+                if (_tentativasGerarComanda > 3)
+                {
+                    throw;
+                }
+                else
+                {
+                    codigo = GerarCodigoComanda(identificadorFilial, codigoPrefixo, identificadorMesaAtendente, ref contexto);
+                }
+            }
+
+            return codigo;
         }
+
+
     }
 
 }

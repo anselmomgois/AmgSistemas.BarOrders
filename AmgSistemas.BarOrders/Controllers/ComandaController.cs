@@ -10,11 +10,19 @@ namespace AmgSistemas.BarOrders.Controllers
     [ApiController]
     public class ComandaController : Controller
     {
+        private readonly Interfaces.IComandaServices _comandaServices;
+
+        public ComandaController(Interfaces.IComandaServices comandaServices)
+        {
+            _comandaServices = comandaServices;
+        }
+
         [HttpPost()]
         public Models.RetornoGenerico Post(Models.Pedido pedido)
         {
             try
             {
+            
                 Models.RetornoGenerico objRetorno = new Models.RetornoGenerico();
 
                // objRetorno.retorno = _pedidoServices.GuardarPedido(pedido);

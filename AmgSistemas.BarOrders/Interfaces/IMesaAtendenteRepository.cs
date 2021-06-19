@@ -8,5 +8,9 @@ namespace AmgSistemas.BarOrders.Interfaces
     public interface IMesaAtendenteRepository : IGeneric
     {
         List<Models.MesaAtendente> Buscar(string identificadorMesa);
+
+        string GerarAtendimento(string identificadorFuncionario, string identificadorMesa, string codigoChaveAcesso, ref BD.BancoContext contexto);
+
+        string GerarChaveAcesso();
     }
 }

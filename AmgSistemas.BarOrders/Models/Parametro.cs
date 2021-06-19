@@ -5,14 +5,12 @@ using System.Threading.Tasks;
 
 namespace AmgSistemas.BarOrders.Models
 {
-    public class Filial
+    public class Parametro
     {
         public string identificador { get; set; }
         public string codigo { get; set; }
         public string descricao { get; set; }
-        public bool trabalhaPorMesa { get; set; }
-        public bool solicitarTelefone { get; set; }
-        public Empresa empresa { get; set; }
-        public List<Parametro> parametros { get; set; }
+        public Enumeradores.TipoParametro tipoParametro { get; set; }
+        public string valor { get; set; }
     }
 }
