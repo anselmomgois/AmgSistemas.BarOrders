@@ -35,5 +35,38 @@ namespace AmgSistemas.BarOrders.Controllers
                 return new Models.RetornoGenerico() { codigo = 1, descricao = ex.ToString() };
             }
         }
+
+        [Route("iniciar-atendimento")]
+        [HttpPost()]
+        public Models.RetornoGenerico Post(Models.Atendimento atendimento)
+        {
+            try
+            {
+                Models.RetornoGenerico objRetorno = new Models.RetornoGenerico();
+
+                if (ModelState.IsValid)
+                {
+
+                    _comandaServices.IniciarAtendimento(atendimento.identificadorMesa, atendimento.identificadorFilial, atendimento.trabalhaPorMesa, atendimento.identificadorAtendente, 
+                                                        atendimento.codigoPrefixoComanda, atendimento.trabalhaPorComanda);
+                    objRetorno.codigo = 0;
+
+                }
+               
+
+               
+                
+
+                return objRetorno;
+            }
+            catch (Execao.ExecaoNegocio ex)
+            {
+                return new Models.RetornoGenerico() { codigo =  ex.codigo.GetHashCode(), descricao = ex.descricao };
+            }
+            catch (Exception ex)
+            {
+                return new Models.RetornoGenerico() { codigo = 1, descricao = ex.ToString() };
+            }
+        }
     }
 }

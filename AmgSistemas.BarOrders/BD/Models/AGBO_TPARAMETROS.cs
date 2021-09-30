@@ -13,5 +13,7 @@ namespace AmgSistemas.BarOrders.BD.Models
         public string COD_TIPO_PARAMETRO { get; set; }
         public DateTime DTH_REGISTRO { get; set; }
         public bool BOL_ACTIVO { get; set; }
+
+        public ICollection<AGBO_TPARAMETRO_VALOR> AGBO_TPARAMETRO_VALOR { get; set; }
     }
 }

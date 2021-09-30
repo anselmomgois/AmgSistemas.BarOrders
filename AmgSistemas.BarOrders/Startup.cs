@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,6 +41,7 @@ namespace AmgSistemas.BarOrders
             services.AddScoped<Interfaces.IGrupoProdutoServices, Services.GrupoProdutoServices>();
             services.AddScoped<Interfaces.IMesaServices, Services.MesaServices>();
             services.AddScoped<Interfaces.IPedidoServices, Services.PedidoServices>();
+            services.AddScoped<Interfaces.IComandaServices, Services.ComandaServices>();
 
             services.AddCors(options =>
             {
@@ -50,7 +52,9 @@ namespace AmgSistemas.BarOrders
                                   });
             });
 
-           
+
+            services.AddDbContext<BD.BancoContext>(options =>
+                 options.UseSqlServer(Configuration.GetConnectionString("DbContext")));
 
             services.AddControllers();
         }

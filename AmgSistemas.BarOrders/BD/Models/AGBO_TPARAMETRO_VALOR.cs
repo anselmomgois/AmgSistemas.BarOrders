@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,8 +9,11 @@ namespace AmgSistemas.BarOrders.BD.Models
     public class AGBO_TPARAMETRO_VALOR
     {
         public string ID_PARAMETRO_VALOR { get; set; }
+        [ForeignKey("AGBO_TFILIAL")]
         public string ID_FILIAL { get; set; }
+        [ForeignKey("AGBO_TEMPRESA")]
         public string ID_EMPRESA { get; set; }
+        [ForeignKey("AGBO_TPARAMETROS")]
         public string ID_PARAMETRO { get; set; }
         public string DES_VALOR_PARAMETRO { get; set; }
         public DateTime DTH_REGISTRO { get; set; }

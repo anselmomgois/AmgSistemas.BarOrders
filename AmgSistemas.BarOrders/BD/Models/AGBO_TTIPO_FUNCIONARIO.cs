@@ -10,5 +10,7 @@ namespace AmgSistemas.BarOrders.BD.Models
         public string ID_TIPO_FUNCIONARIO { get; set; }
         public string COD_TIPO_FUNCIONARIO { get; set; }
         public string DES_TIPO_FUNCIONARIO { get; set; }
+
+        public ICollection<AGBO_TFUNCIONARIO> AGBO_TFUNCIONARIO { get; set; }
     }
 }

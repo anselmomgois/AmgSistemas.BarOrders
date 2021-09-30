@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace AmgSistemas.BarOrders.BD
         public DbSet<Models.AGBO_TFILIAL> AGBO_TFILIAL { get; set; }
 
         public DbSet<Models.AGBO_TGRUPO_PRODUTO> AGBO_TGRUPO_PRODUTO { get; set; }
-        public DbSet<Models.AGBO_PRODUTO> AGBO_PRODUTO { get; set; }
+        public DbSet<Models.AGBO_TPRODUTO> AGBO_TPRODUTO { get; set; }
         public DbSet<Models.AGBO_TPRODUTO_FILIAL> AGBO_TPRODUTO_FILIAL { get; set; }
 
         public DbSet<Models.AGBO_TMESA> AGBO_TMESA { get; set; }
@@ -29,9 +30,36 @@ namespace AmgSistemas.BarOrders.BD
         public DbSet<Models.AGBO_TPARAMETRO_VALOR> AGBO_TPARAMETRO_VALOR { get; set; }
 
 
+        private DbConnection _connection;
+
+        public BancoContext(DbConnection connection)
+        {
+            _connection = connection;
+        }
+
+        public BancoContext()
+        {
+           
+        }
+
+        public BancoContext(DbContextOptions options) : base(options)
+        {
+           
+        }
+
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=h0ly2jiz8m.database.windows.net;Initial Catalog=IGERENCE;Persist Security Info=True;User ID=anselmo;Password=@mg110182");
+           
+            if (_connection != null)
+            {
+                optionsBuilder.UseSqlServer(_connection);
+            }
+            else
+            {
+                optionsBuilder.UseSqlServer("Data Source=h0ly2jiz8m.database.windows.net;Initial Catalog=IGERENCE;Persist Security Info=True;User ID=anselmo;Password=@mg110182");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -57,7 +85,7 @@ namespace AmgSistemas.BarOrders.BD
             
             
             modelBuilder
-                  .Entity<Models.AGBO_PRODUTO>(eb =>
+                  .Entity<Models.AGBO_TPRODUTO>(eb =>
                   {
                       eb.HasKey("ID_PRODUTO");
                   }); 

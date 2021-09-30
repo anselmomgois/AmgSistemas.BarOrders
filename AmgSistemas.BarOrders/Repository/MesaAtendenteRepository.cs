@@ -15,16 +15,18 @@ namespace AmgSistemas.BarOrders.Repository
             {
                 BD.BancoContext objBD = new BD.BancoContext();
 
-
+            
                 var mesasAtendentes = (from BD.Models.AGBO_TMESA_ATENDENTE ma in objBD.AGBO_TMESA_ATENDENTE
-                                       join BD.Models.AGBO_TFUNCIONARIO f in objBD.AGBO_TFUNCIONARIO on ma.ID_FUNCIONARIO equals f.ID_FUNCIONARIO
-                                       where ma.ID_MESA == identificadorMesa && ma.BOL_CORRENTE
-                                       select new MesaAtendente
-                                       {
-                                           dataRegistro = ma.DTH_REGISTRO,
-                                           identificador = ma.ID_MESA_ATENDENTE,
-                                           nomeAtendente = f.DES_NOME
-                                       }).ToList();
+                                        join BD.Models.AGBO_TFUNCIONARIO f in objBD.AGBO_TFUNCIONARIO on ma.ID_FUNCIONARIO equals f.ID_FUNCIONARIO
+                                        where ma.ID_MESA == identificadorMesa && ma.BOL_CORRENTE
+                                        select new MesaAtendente
+                                        {
+                                            dataRegistro = ma.DTH_REGISTRO,
+                                            identificador = ma.ID_MESA_ATENDENTE,
+                                            nomeAtendente = f.DES_NOME,
+                                            codigoChaveAcesso = ma.COD_CHAVE_ACESSO,
+                                            codigoComanda = ma.COD_COMANDA
+                                        }).ToList();
 
 
                 return mesasAtendentes;
@@ -47,6 +49,8 @@ namespace AmgSistemas.BarOrders.Repository
                 ID_MESA = identificadorMesa,
                 ID_MESA_ATENDENTE = identificador
             });
+
+            bdContexto.SaveChanges();
 
             return identificador;
         }

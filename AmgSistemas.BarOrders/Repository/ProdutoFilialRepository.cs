@@ -15,7 +15,7 @@ namespace AmgSistemas.BarOrders.Repository
             {
                 BD.BancoContext objBD = new BD.BancoContext();
 
-                return (from BD.Models.AGBO_PRODUTO p in objBD.AGBO_PRODUTO
+                return (from BD.Models.AGBO_TPRODUTO p in objBD.AGBO_TPRODUTO
                         join BD.Models.AGBO_TPRODUTO_FILIAL pf in objBD.AGBO_TPRODUTO_FILIAL on p.ID_PRODUTO equals pf.ID_PRODUTO
                         join BD.Models.AGBO_TFILIAL f in objBD.AGBO_TFILIAL on pf.ID_FILIAL equals f.ID_FILIAL
                         join BD.Models.AGBO_TGRUPO_PRODUTO gp in objBD.AGBO_TGRUPO_PRODUTO on p.ID_GRUPO_PRODUTO equals gp.ID_GRUPO_PRODUTO

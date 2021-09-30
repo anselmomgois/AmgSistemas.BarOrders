@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 
 namespace AmgSistemas.BarOrders.Services
 {
@@ -22,59 +22,73 @@ namespace AmgSistemas.BarOrders.Services
             _mesaAtendenteRepository = mesaAtendenteRepository;
         }
 
-        public string IniciarAtendimento(string identificadorMesa, string identificadorFilial, bool trabalhaPorMesa, string identificadorFuncionario, string codPrefixoComanda)
+        public string IniciarAtendimento(string identificadorMesa, string identificadorFilial, bool trabalhaPorMesa, string identificadorFuncionario, string codPrefixoComanda, bool trabalhaComComanda)
         {
             string codigoComanda = string.Empty;
 
-            var context = new BD.BancoContext();
-
-            using (DbContextTransaction transaction = (DbContextTransaction)context.Database.BeginTransaction())
+           
+            using (SqlConnection con = new SqlConnection("Data Source=h0ly2jiz8m.database.windows.net;Initial Catalog=IGERENCE;Persist Security Info=True;User ID=anselmo;Password=@mg110182"))
             {
-                if (trabalhaPorMesa)
+                con.Open();
+
+                using (SqlTransaction transaction = con.BeginTransaction())
                 {
-                    if (_mesaRepository.MesaDisponivel(identificadorMesa))
-                    {
 
-                        try
+                    var context = new BD.BancoContext(transaction.Connection);
+
+                   
+                    context.Database.UseTransaction(transaction);
+
+                    //using (DbContextTransaction transaction = (DbContextTransaction)context.Database.BeginTransaction())
+                    //{
+
+                    if (trabalhaPorMesa)
                         {
-                            _mesaRepository.AtualizarEstado(identificadorMesa, Enumeradores.EstadoMesa.Ocupado, ref context);
+                            if (_mesaRepository.MesaDisponivel(identificadorMesa))
+                            {
 
-                            string identificadorMesaAtendente = _mesaAtendenteRepository.GerarAtendimento(identificadorFuncionario, identificadorMesa, _mesaAtendenteRepository.GerarChaveAcesso(), ref context);
+                                try
+                                {
+                                    _mesaRepository.AtualizarEstado(identificadorMesa, Enumeradores.EstadoMesa.Ocupado, ref context);
 
-                            codigoComanda = _comandaRepository.GerarCodigoComanda(identificadorFilial, codPrefixoComanda, identificadorMesaAtendente, ref context);
+                                    string identificadorMesaAtendente = _mesaAtendenteRepository.GerarAtendimento(identificadorFuncionario, identificadorMesa, _mesaAtendenteRepository.GerarChaveAcesso(), ref context);
 
-                            transaction.Commit();
+                                    if (trabalhaComComanda)
+                                        codigoComanda = _comandaRepository.GerarCodigoComanda(identificadorFilial, codPrefixoComanda, identificadorMesaAtendente, ref context);
+
+                                    transaction.Commit();
+                                }
+                                catch (Exception ex)
+                                {
+                                    transaction.Rollback();
+                                    throw;
+                                }
+
+                            }
+                            else
+                            {
+                                throw new Execao.ExecaoNegocio(Enumeradores.CodigosErros.ErroNegocio, "Mesa não se encontra disponível para abertura.");
+                            }
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            transaction.Rollback();
-                            throw;
+                            try
+                            {
+                                string identificadorMesaAtendente = _mesaAtendenteRepository.GerarAtendimento(identificadorFuncionario, identificadorMesa, _mesaAtendenteRepository.GerarChaveAcesso(), ref context);
+
+                                codigoComanda = _comandaRepository.GerarCodigoComanda(identificadorFilial, codPrefixoComanda, identificadorMesaAtendente, ref context);
+
+                                transaction.Commit();
+                            }
+                            catch (Exception ex)
+                            {
+                                transaction.Rollback();
+                                throw;
+                            }
                         }
-
-                    }
-                    else
-                    {
-                        throw new Execao.ExecaoNegocio(Enumeradores.CodigosErros.ErroNegocio, "Mesa não se encontra disponível para abertura.");
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        string identificadorMesaAtendente = _mesaAtendenteRepository.GerarAtendimento(identificadorFuncionario, identificadorMesa, _mesaAtendenteRepository.GerarChaveAcesso(), ref context);
-
-                        codigoComanda = _comandaRepository.GerarCodigoComanda(identificadorFilial, codPrefixoComanda, identificadorMesaAtendente, ref context);
-
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    //}
                 }
             }
-
             return codigoComanda;
         }
     }
