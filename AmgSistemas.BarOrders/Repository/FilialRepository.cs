@@ -8,14 +8,20 @@ namespace AmgSistemas.BarOrders.Repository
 {
     public class FilialRepository : Interfaces.IFilialRepository
     {
+        private readonly BD.BancoContext _contexto;
+
+        public FilialRepository(BD.BancoContext contexto)
+        {
+            _contexto = contexto;
+        }
+
         public Filial Buscar(string identificador)
         {
             if (!string.IsNullOrEmpty(identificador))
             {
-                BD.BancoContext objBD = new BD.BancoContext();
-
-                return (from BD.Models.AGBO_TFILIAL f in objBD.AGBO_TFILIAL
-                        join BD.Models.AGBO_TEMPRESA e in objBD.AGBO_TEMPRESA on f.ID_EMPRESA equals e.ID_EMPRESA
+             
+                return (from BD.Models.AGBO_TFILIAL f in _contexto.AGBO_TFILIAL
+                        join BD.Models.AGBO_TEMPRESA e in _contexto.AGBO_TEMPRESA on f.ID_EMPRESA equals e.ID_EMPRESA
                         where f.ID_FILIAL == identificador
                         select new Models.Filial()
                         {

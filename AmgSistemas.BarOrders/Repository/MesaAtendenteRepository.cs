@@ -9,15 +9,20 @@ namespace AmgSistemas.BarOrders.Repository
 {
     public class MesaAtendenteRepository : Interfaces.IMesaAtendenteRepository
     {
+
+        private readonly BD.BancoContext _contexto;
+
+        public MesaAtendenteRepository(BD.BancoContext contexto)
+        {
+            _contexto = contexto;
+        }
+
         public List<MesaAtendente> Buscar(string identificadorMesa)
         {
             if (!string.IsNullOrEmpty(identificadorMesa))
             {
-                BD.BancoContext objBD = new BD.BancoContext();
-
-            
-                var mesasAtendentes = (from BD.Models.AGBO_TMESA_ATENDENTE ma in objBD.AGBO_TMESA_ATENDENTE
-                                        join BD.Models.AGBO_TFUNCIONARIO f in objBD.AGBO_TFUNCIONARIO on ma.ID_FUNCIONARIO equals f.ID_FUNCIONARIO
+                var mesasAtendentes = (from BD.Models.AGBO_TMESA_ATENDENTE ma in _contexto.AGBO_TMESA_ATENDENTE
+                                        join BD.Models.AGBO_TFUNCIONARIO f in _contexto.AGBO_TFUNCIONARIO on ma.ID_FUNCIONARIO equals f.ID_FUNCIONARIO
                                         where ma.ID_MESA == identificadorMesa && ma.BOL_CORRENTE
                                         select new MesaAtendente
                                         {

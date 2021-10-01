@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmgSistemas.BarOrders", "AmgSistemas.BarOrders\AmgSistemas.BarOrders.csproj", "{B745D1B6-5CD4-4F9D-99C3-6060DDD5F8FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmgSistemas.BarOrders", "AmgSistemas.BarOrders\AmgSistemas.BarOrders.csproj", "{B745D1B6-5CD4-4F9D-99C3-6060DDD5F8FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

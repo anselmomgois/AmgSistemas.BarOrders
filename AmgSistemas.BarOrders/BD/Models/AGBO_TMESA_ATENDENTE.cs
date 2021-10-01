@@ -24,5 +24,6 @@ namespace AmgSistemas.BarOrders.BD.Models
         public AGBO_TFILIAL AGBO_TFILIAL { get; set; }
         public AGBO_TFUNCIONARIO AGBO_TFUNCIONARIO { get; set; }
         public ICollection<AGBO_TCOMANDA> AGBO_TCOMANDA { get; set; }
+        public ICollection<AGBO_TDISPOSITIVO> AGBO_TDISPOSITIVO { get; set; }
     }
 }

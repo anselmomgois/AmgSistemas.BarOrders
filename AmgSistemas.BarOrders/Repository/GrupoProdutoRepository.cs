@@ -8,14 +8,20 @@ namespace AmgSistemas.BarOrders.Repository
 {
     public class GrupoProdutoRepository : Interfaces.IGrupoProdutoRepository
     {
+
+        private readonly BD.BancoContext _contexto;
+
+        public GrupoProdutoRepository(BD.BancoContext contexto)
+        {
+            _contexto = contexto;
+        }
+
         public List<GrupoProduto> Buscar(string identificadorEmpresa)
         {
             if(!string.IsNullOrEmpty(identificadorEmpresa))
             {
 
-                BD.BancoContext objBD = new BD.BancoContext();
-
-                return (from BD.Models.AGBO_TGRUPO_PRODUTO gp in objBD.AGBO_TGRUPO_PRODUTO
+                return (from BD.Models.AGBO_TGRUPO_PRODUTO gp in _contexto.AGBO_TGRUPO_PRODUTO
                         where gp.ID_EMPRESA == identificadorEmpresa
                         select new Models.GrupoProduto()
                         {

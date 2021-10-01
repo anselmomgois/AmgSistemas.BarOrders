@@ -35,6 +35,7 @@ namespace AmgSistemas.BarOrders
             services.AddScoped<Interfaces.IMesaAtendenteRepository, Repository.MesaAtendenteRepository>();
             services.AddScoped<Interfaces.IComandaRepository, Repository.ComandaRepository>();
             services.AddScoped<Interfaces.IParametroRepository, Repository.ParametroRepository>();
+            services.AddScoped<Interfaces.IDispositivoRepository, Repository.DispositivoRepository>();
 
             services.AddScoped<Interfaces.IProdutoFilialServices, Services.ProdutoFilialServices>();            
             services.AddScoped<Interfaces.IFilialServices, Services.FilialServices>();            
@@ -42,6 +43,8 @@ namespace AmgSistemas.BarOrders
             services.AddScoped<Interfaces.IMesaServices, Services.MesaServices>();
             services.AddScoped<Interfaces.IPedidoServices, Services.PedidoServices>();
             services.AddScoped<Interfaces.IComandaServices, Services.ComandaServices>();
+
+            services.AddScoped<Interfaces.IParametroServices, Services.ParametrosServices>();
 
             services.AddCors(options =>
             {

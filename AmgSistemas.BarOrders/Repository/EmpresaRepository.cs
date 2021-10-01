@@ -9,14 +9,21 @@ namespace AmgSistemas.BarOrders.Repository
 {
     public class EmpresaRepository : Interfaces.IEmpresaRepository
     {
+
+        private readonly BD.BancoContext _contexto;
+
+        public EmpresaRepository(BD.BancoContext contexto)
+        {
+            _contexto = contexto;
+        }
+
         public Empresa Buscar(string identificador)
         {
 
             if (!string.IsNullOrEmpty(identificador))
             {
-                BD.BancoContext objBD = new BD.BancoContext();
-
-                return (from BD.Models.AGBO_TEMPRESA e in objBD.AGBO_TEMPRESA
+               
+                return (from BD.Models.AGBO_TEMPRESA e in _contexto.AGBO_TEMPRESA
                         where e.ID_EMPRESA == identificador
                         select new Models.Empresa()
                         {

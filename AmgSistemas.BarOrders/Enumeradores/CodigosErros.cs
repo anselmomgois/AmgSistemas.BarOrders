@@ -13,6 +13,8 @@ namespace AmgSistemas.BarOrders.Enumeradores
         [ValorEnum("2")]
         ErroNegocio,
         [ValorEnum("0")]
-        SemErro
+        SemErro,
+        [ValorEnum("3")]
+        SolicitarSenha
     }
 }

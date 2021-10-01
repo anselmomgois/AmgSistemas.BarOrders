@@ -20,10 +20,7 @@ namespace AmgSistemas.BarOrders.Repository
 
         public void AtualizarEstado(string identificador, EstadoMesa estado)
         {
-            //BD.BancoContext objBD = new BD.BancoContext();
-
-
-            var mesa = _contexto.AGBO_TMESA.FirstOrDefault(m => m.ID_MESA == identificador);
+             var mesa = _contexto.AGBO_TMESA.FirstOrDefault(m => m.ID_MESA == identificador);
 
             if (mesa != null)
             {
@@ -37,9 +34,7 @@ namespace AmgSistemas.BarOrders.Repository
 
         public void AtualizarEstado(string identificador, EstadoMesa estado, ref BD.BancoContext contexto)
         {
-            //BD.BancoContext objBD = contexto;
-
-
+            
             var mesa = contexto.AGBO_TMESA.FirstOrDefault(m => m.ID_MESA == identificador && m.BOL_ATIVO);
 
             if (mesa != null)
@@ -56,9 +51,7 @@ namespace AmgSistemas.BarOrders.Repository
         {
             if (!string.IsNullOrEmpty(identificador))
             {
-                BD.BancoContext objBD = new BD.BancoContext();
-
-                var mesa = (from BD.Models.AGBO_TMESA m in objBD.AGBO_TMESA
+                var mesa = (from BD.Models.AGBO_TMESA m in _contexto.AGBO_TMESA
                             where m.ID_MESA == identificador && m.BOL_ATIVO
                             select new Mesa()
                             {
@@ -76,9 +69,7 @@ namespace AmgSistemas.BarOrders.Repository
 
         public bool MesaDisponivel(string identificador)
         {
-            BD.BancoContext objBD = new BD.BancoContext();
-
-            var disponivel = (from BD.Models.AGBO_TMESA m in objBD.AGBO_TMESA
+            var disponivel = (from BD.Models.AGBO_TMESA m in _contexto.AGBO_TMESA
                               where m.ID_MESA == identificador && m.BOL_ATIVO && m.COD_ESTADO == Enumeradores.EstadoMesa.Livre.RecuperarValor()
                               select m).Count();
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace AmgSistemas.BarOrders.Services
 {
@@ -13,13 +14,14 @@ namespace AmgSistemas.BarOrders.Services
         private readonly Interfaces.IComandaRepository _comandaRepository;
         private readonly Interfaces.IMesaRepository _mesaRepository;
         private readonly Interfaces.IMesaAtendenteRepository _mesaAtendenteRepository;
+        public IConfiguration _configuration { get; }
 
-
-        public ComandaServices(Interfaces.IComandaRepository comandaRepository, Interfaces.IMesaRepository mesaRepository, Interfaces.IMesaAtendenteRepository mesaAtendenteRepository)
+        public ComandaServices(Interfaces.IComandaRepository comandaRepository, Interfaces.IMesaRepository mesaRepository, Interfaces.IMesaAtendenteRepository mesaAtendenteRepository, IConfiguration configuration)
         {
             _comandaRepository = comandaRepository;
             _mesaRepository = mesaRepository;
             _mesaAtendenteRepository = mesaAtendenteRepository;
+            _configuration = configuration;
         }
 
         public string IniciarAtendimento(string identificadorMesa, string identificadorFilial, bool trabalhaPorMesa, string identificadorFuncionario, string codPrefixoComanda, bool trabalhaComComanda)
@@ -27,7 +29,7 @@ namespace AmgSistemas.BarOrders.Services
             string codigoComanda = string.Empty;
 
            
-            using (SqlConnection con = new SqlConnection("Data Source=h0ly2jiz8m.database.windows.net;Initial Catalog=IGERENCE;Persist Security Info=True;User ID=anselmo;Password=@mg110182"))
+            using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DbContext")))
             {
                 con.Open();
 
@@ -38,9 +40,6 @@ namespace AmgSistemas.BarOrders.Services
 
                    
                     context.Database.UseTransaction(transaction);
-
-                    //using (DbContextTransaction transaction = (DbContextTransaction)context.Database.BeginTransaction())
-                    //{
 
                     if (trabalhaPorMesa)
                         {
@@ -86,7 +85,7 @@ namespace AmgSistemas.BarOrders.Services
                                 throw;
                             }
                         }
-                    //}
+                    
                 }
             }
             return codigoComanda;

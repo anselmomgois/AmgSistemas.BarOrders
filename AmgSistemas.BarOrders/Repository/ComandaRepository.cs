@@ -10,16 +10,20 @@ namespace AmgSistemas.BarOrders.Repository
     public class ComandaRepository : Interfaces.IComandaRepository
     {
 
-        private BD.BancoContext objBD = null;
+        private readonly BD.BancoContext _contexto;
         private Int32 _tentativasGerarComanda = 0;
 
-        public string AbrirComanda(Pedido pedido)
+        public ComandaRepository(BD.BancoContext contexto)
+        {
+            _contexto = contexto;
+        }
+
+        public string AbrirComanda(Pedido pedido, ref BD.BancoContext contexto)
         {
             string _identificadorcomanda = Guid.NewGuid().ToString();
 
-            objBD = new BD.BancoContext();
 
-            objBD.AGBO_TCOMANDA.Add(new BD.Models.AGBO_TCOMANDA
+            contexto.AGBO_TCOMANDA.Add(new BD.Models.AGBO_TCOMANDA
             {
                 COD_COMANDA = pedido.codigoComanda,
                 DTH_REGISTRO = DateTime.Now,
@@ -28,16 +32,17 @@ namespace AmgSistemas.BarOrders.Repository
                 ID_MESA_ATENDENTE = pedido.identificadorMesaAtendente
             });
 
+            contexto.SaveChanges();
+
             return _identificadorcomanda;
         }
 
-        public void FazerPedido(List<ItemPedido> itemsPedido, string identificadorComanda)
+        public void FazerPedido(List<ItemPedido> itemsPedido, string identificadorComanda, ref BD.BancoContext contexto)
         {
-            if (objBD == null) objBD = new BD.BancoContext();
-
+            
             foreach (var item in itemsPedido)
             {
-                objBD.AGBO_TITEM_COMANDA.Add(new BD.Models.AGBO_TITEM_COMANDA
+                contexto.AGBO_TITEM_COMANDA.Add(new BD.Models.AGBO_TITEM_COMANDA
                 {
                     ID_COMANDA = identificadorComanda,
                     DTH_REGISTRO = DateTime.Now,
@@ -46,11 +51,6 @@ namespace AmgSistemas.BarOrders.Repository
                     NUM_QUANTIDADE = item.quantidade
                 });
             }
-        }
-
-        public void FinalizarPedido()
-        {
-            objBD.SaveChanges();
         }
 
         public string GerarCodigoComanda(string identificadorFilial, string codigoPrefixo, string identificadorMesaAtendente, ref BD.BancoContext contexto)

@@ -7,6 +7,6 @@ namespace AmgSistemas.BarOrders.Interfaces
 {
     public interface IMesaServices:IGeneric
     {
-        Models.Mesa Buscar(string identificador);
+        Models.Mesa Buscar(string identificador, string senha, string codigoDispositivo);
     }
 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using AmgSistemas.BarOrders.Extensoes;
 namespace AmgSistemas.BarOrders.Controllers
 {
     [Route("api/[controller]")]
@@ -17,17 +17,24 @@ namespace AmgSistemas.BarOrders.Controllers
             _mesaServices = mesaServices;
         }
 
-        [HttpGet("{id}")]
-        public Models.RetornoGenerico Get(string id)
+        [HttpGet("{id}/{codigo}/{senha?}")]
+        public Models.RetornoGenerico Get(string id, string codigo, string senha)
         {
             try
             {
                 Models.RetornoGenerico objRetorno = new Models.RetornoGenerico();
 
-                objRetorno.retorno = _mesaServices.Buscar(id);
+                objRetorno.retorno = _mesaServices.Buscar(id, senha, codigo);
                 objRetorno.codigo = 0;
 
                 return objRetorno;
+            }
+            catch (Execao.ExecaoNegocio ex)
+            {
+                if (ex.codigo == Enumeradores.CodigosErros.SolicitarSenha)
+                    return new Models.RetornoGenerico() { codigo = Convert.ToInt32(Enumeradores.CodigosErros.SolicitarSenha.RecuperarValor()), descricao = ex.ToString() };
+                else
+                    return new Models.RetornoGenerico() { codigo = Convert.ToInt32(ex.codigo.RecuperarValor()), descricao = ex.ToString() };
             }
             catch (Exception ex)
             {

@@ -25,40 +25,33 @@ namespace AmgSistemas.BarOrders.BD
         public DbSet<Models.AGBO_TFILIAL_FUNCIONARIO> AGBO_TFILIAL_FUNCIONARIO { get; set; }
         public DbSet<Models.AGBO_TMESA_ATENDENTE> AGBO_TMESA_ATENDENTE { get; set; }
         public DbSet<Models.AGBO_TCOMANDA> AGBO_TCOMANDA { get; set; }
-        public DbSet<Models.AGBO_TITEM_COMANDA> AGBO_TITEM_COMANDA { get; set; } 
+        public DbSet<Models.AGBO_TITEM_COMANDA> AGBO_TITEM_COMANDA { get; set; }
         public DbSet<Models.AGBO_TPARAMETROS> AGBO_TPARAMETROS { get; set; }
         public DbSet<Models.AGBO_TPARAMETRO_VALOR> AGBO_TPARAMETRO_VALOR { get; set; }
+        public DbSet<Models.AGBO_TDISPOSITIVO> AGBO_TDISPOSITIVO { get; set; }
 
 
-        private DbConnection _connection;
+        private readonly DbConnection _connection;
 
         public BancoContext(DbConnection connection)
         {
             _connection = connection;
         }
 
-        public BancoContext()
-        {
-           
-        }
-
+       
         public BancoContext(DbContextOptions options) : base(options)
         {
-           
+
         }
 
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           
+
             if (_connection != null)
             {
                 optionsBuilder.UseSqlServer(_connection);
-            }
-            else
-            {
-                optionsBuilder.UseSqlServer("Data Source=h0ly2jiz8m.database.windows.net;Initial Catalog=IGERENCE;Persist Security Info=True;User ID=anselmo;Password=@mg110182");
             }
         }
 
@@ -76,19 +69,19 @@ namespace AmgSistemas.BarOrders.BD
                   {
                       eb.HasKey("ID_FILIAL");
                   });
-            
+
             modelBuilder
                   .Entity<Models.AGBO_TGRUPO_PRODUTO>(eb =>
                   {
                       eb.HasKey("ID_GRUPO_PRODUTO");
-                  }); 
-            
-            
+                  });
+
+
             modelBuilder
                   .Entity<Models.AGBO_TPRODUTO>(eb =>
                   {
                       eb.HasKey("ID_PRODUTO");
-                  }); 
+                  });
             modelBuilder
                   .Entity<Models.AGBO_TPRODUTO_FILIAL>(eb =>
                   {
@@ -99,12 +92,12 @@ namespace AmgSistemas.BarOrders.BD
                  .Entity<Models.AGBO_TMESA>(eb =>
                  {
                      eb.HasKey("ID_MESA");
-                 });  
+                 });
             modelBuilder
                  .Entity<Models.AGBO_TTIPO_FUNCIONARIO>(eb =>
                  {
                      eb.HasKey("ID_TIPO_FUNCIONARIO");
-                 }); 
+                 });
             modelBuilder
                  .Entity<Models.AGBO_TFUNCIONARIO>(eb =>
                  {
@@ -114,12 +107,12 @@ namespace AmgSistemas.BarOrders.BD
                  .Entity<Models.AGBO_TFILIAL_FUNCIONARIO>(eb =>
                  {
                      eb.HasKey("ID_FILIAL_FUNCIONARIO");
-                 });  
+                 });
             modelBuilder
                  .Entity<Models.AGBO_TMESA_ATENDENTE>(eb =>
                  {
                      eb.HasKey("ID_MESA_ATENDENTE");
-                 }); 
+                 });
             modelBuilder
                  .Entity<Models.AGBO_TCOMANDA>(eb =>
                  {
@@ -134,11 +127,16 @@ namespace AmgSistemas.BarOrders.BD
                  .Entity<Models.AGBO_TPARAMETROS>(eb =>
                  {
                      eb.HasKey("ID_PARAMETRO");
-                 }); 
+                 });
             modelBuilder
                  .Entity<Models.AGBO_TPARAMETRO_VALOR>(eb =>
                  {
                      eb.HasKey("ID_PARAMETRO_VALOR");
+                 });
+            modelBuilder
+                 .Entity<Models.AGBO_TDISPOSITIVO>(eb =>
+                 {
+                     eb.HasKey("ID_DISPOSITIVO");
                  });
 
 

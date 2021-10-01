@@ -8,17 +8,24 @@ namespace AmgSistemas.BarOrders.Repository
 {
     public class ProdutoFilialRepository : Interfaces.IProdutoFilialRepository
     {
+
+        private readonly BD.BancoContext _contexto;
+
+        public ProdutoFilialRepository(BD.BancoContext contexto)
+        {
+            _contexto = contexto;
+        }
+
         public List<Models.ProdutoFilial> Buscar(string idEmpresa, string idFilial)
         {
 
             if (!string.IsNullOrEmpty(idFilial) && !string.IsNullOrEmpty(idEmpresa))
             {
-                BD.BancoContext objBD = new BD.BancoContext();
-
-                return (from BD.Models.AGBO_TPRODUTO p in objBD.AGBO_TPRODUTO
-                        join BD.Models.AGBO_TPRODUTO_FILIAL pf in objBD.AGBO_TPRODUTO_FILIAL on p.ID_PRODUTO equals pf.ID_PRODUTO
-                        join BD.Models.AGBO_TFILIAL f in objBD.AGBO_TFILIAL on pf.ID_FILIAL equals f.ID_FILIAL
-                        join BD.Models.AGBO_TGRUPO_PRODUTO gp in objBD.AGBO_TGRUPO_PRODUTO on p.ID_GRUPO_PRODUTO equals gp.ID_GRUPO_PRODUTO
+               
+                return (from BD.Models.AGBO_TPRODUTO p in _contexto.AGBO_TPRODUTO
+                        join BD.Models.AGBO_TPRODUTO_FILIAL pf in _contexto.AGBO_TPRODUTO_FILIAL on p.ID_PRODUTO equals pf.ID_PRODUTO
+                        join BD.Models.AGBO_TFILIAL f in _contexto.AGBO_TFILIAL on pf.ID_FILIAL equals f.ID_FILIAL
+                        join BD.Models.AGBO_TGRUPO_PRODUTO gp in _contexto.AGBO_TGRUPO_PRODUTO on p.ID_GRUPO_PRODUTO equals gp.ID_GRUPO_PRODUTO
                         where f.ID_FILIAL == idFilial && f.ID_EMPRESA == idEmpresa
                         orderby gp.DES_GRUPO_PRODUTO
                         select new Models.ProdutoFilial()
