@@ -11,8 +11,8 @@ namespace AmgSistemas.BarOrders.Services
         private readonly Interfaces.IParametroRepository _parametroRepository;
 
         public static List<Models.ParametroEmpresa> _parametros;
-        private static readonly object _sync;
-        private static readonly object _syncInstancia;
+        private static readonly object _sync = new object();
+        private static readonly object _syncInstancia = new object();
 
 
         public ParametrosServices(Interfaces.IParametroRepository parametroRepository)
@@ -45,7 +45,7 @@ namespace AmgSistemas.BarOrders.Services
             BuscarParametrosBanco(identificadorEmpresa, identificadorFilial);
 
 
-            return _parametros.Find(p => p.identificadorEmpresa == identificadorEmpresa && p.identificadorFilial == identificadorFilial)?.parametros?.Find(ph => ph.codigo == codigoParametro);
+            return parametros.Find(p => p.identificadorEmpresa == identificadorEmpresa && p.identificadorFilial == identificadorFilial)?.parametros?.Find(ph => ph.codigo == codigoParametro);
         }
 
         public List<Parametro> BuscarParametros(string identificadorEmpresa, string identificadorFilial)
@@ -54,30 +54,30 @@ namespace AmgSistemas.BarOrders.Services
             BuscarParametrosBanco(identificadorEmpresa, identificadorFilial);
 
 
-            var parametrosRetorno = _parametros.FindAll(pa => pa.identificadorEmpresa == identificadorEmpresa &&
+            var parametrosRetorno = parametros.FindAll(pa => pa.identificadorEmpresa == identificadorEmpresa &&
                                                        (pa.identificadorFilial == identificadorFilial || string.IsNullOrEmpty(pa.identificadorFilial)))?.Select(p => p.parametros)?.ToList();
 
-            List<Models.Parametro> parametros = new List<Parametro>();
+            List<Models.Parametro> parametrosResult = new List<Parametro>();
 
             parametrosRetorno.ForEach(pr =>
             {
                 pr.ForEach(ph =>
                 {
-                    parametros.Add(ph);
+                    parametrosResult.Add(ph);
                 });
 
             });
 
-            return parametros;
+            return parametrosResult;
         }
 
         private void BuscarParametrosBanco(string identificadorEmpresa, string identificadorFilial)
         {
-            if (!_parametros.Exists(pa => pa.identificadorFilial == identificadorFilial))
+            if (!parametros.Exists(pa => pa.identificadorFilial == identificadorFilial))
             {
                 lock (_sync)
                 {
-                    if (!_parametros.Exists(pa => pa.identificadorFilial == identificadorFilial))
+                    if (!parametros.Exists(pa => pa.identificadorFilial == identificadorFilial))
                     {
                         var parametrosEmpresa = _parametroRepository.Buscar(identificadorEmpresa, identificadorFilial);
 

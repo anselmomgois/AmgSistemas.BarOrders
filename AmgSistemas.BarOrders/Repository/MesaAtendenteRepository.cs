@@ -40,7 +40,7 @@ namespace AmgSistemas.BarOrders.Repository
             return new List<MesaAtendente>();
         }
 
-        public string GerarAtendimento(string identificadorFuncionario, string identificadorMesa, string codigoChaveAcesso, ref BancoContext contexto)
+        public string GerarAtendimento(string identificadorFuncionario, string identificadorMesa, string codigoChaveAcesso, string identificadorFilial, ref BancoContext contexto)
         {
             BD.BancoContext bdContexto = contexto;
             string identificador = Guid.NewGuid().ToString();
@@ -52,7 +52,8 @@ namespace AmgSistemas.BarOrders.Repository
                 DTH_REGISTRO = DateTime.Now,
                 ID_FUNCIONARIO = identificadorFuncionario,
                 ID_MESA = identificadorMesa,
-                ID_MESA_ATENDENTE = identificador
+                ID_MESA_ATENDENTE = identificador,
+                ID_FILIAL = identificadorFilial
             });
 
             bdContexto.SaveChanges();

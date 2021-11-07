@@ -9,7 +9,7 @@ namespace AmgSistemas.BarOrders.Interfaces
     {
         List<Models.MesaAtendente> Buscar(string identificadorMesa);
 
-        string GerarAtendimento(string identificadorFuncionario, string identificadorMesa, string codigoChaveAcesso, ref BD.BancoContext contexto);
+        string GerarAtendimento(string identificadorFuncionario, string identificadorMesa, string codigoChaveAcesso, string identificadorFilial, ref BD.BancoContext contexto);
 
         string GerarChaveAcesso();
     }

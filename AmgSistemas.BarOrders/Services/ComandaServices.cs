@@ -50,7 +50,8 @@ namespace AmgSistemas.BarOrders.Services
                                 {
                                     _mesaRepository.AtualizarEstado(identificadorMesa, Enumeradores.EstadoMesa.Ocupado, ref context);
 
-                                    string identificadorMesaAtendente = _mesaAtendenteRepository.GerarAtendimento(identificadorFuncionario, identificadorMesa, _mesaAtendenteRepository.GerarChaveAcesso(), ref context);
+                                    string identificadorMesaAtendente = _mesaAtendenteRepository.GerarAtendimento(identificadorFuncionario, identificadorMesa, 
+                                                                                                                  _mesaAtendenteRepository.GerarChaveAcesso(), identificadorFilial, ref context);
 
                                     if (trabalhaComComanda)
                                         codigoComanda = _comandaRepository.GerarCodigoComanda(identificadorFilial, codPrefixoComanda, identificadorMesaAtendente, ref context);
@@ -73,7 +74,8 @@ namespace AmgSistemas.BarOrders.Services
                         {
                             try
                             {
-                                string identificadorMesaAtendente = _mesaAtendenteRepository.GerarAtendimento(identificadorFuncionario, identificadorMesa, _mesaAtendenteRepository.GerarChaveAcesso(), ref context);
+                                string identificadorMesaAtendente = _mesaAtendenteRepository.GerarAtendimento(identificadorFuncionario, identificadorMesa, 
+                                                                                                              _mesaAtendenteRepository.GerarChaveAcesso(), identificadorFilial, ref context);
 
                                 codigoComanda = _comandaRepository.GerarCodigoComanda(identificadorFilial, codPrefixoComanda, identificadorMesaAtendente, ref context);
 

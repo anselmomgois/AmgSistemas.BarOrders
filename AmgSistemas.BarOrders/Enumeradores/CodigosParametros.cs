@@ -13,6 +13,8 @@ namespace AmgSistemas.BarOrders.Enumeradores
         [ValorEnum("TrabalhaPorComanda")]
         TrabalhaPorComanda,
         [ValorEnum("MultiplasComandaPorMesa")]
-        MultiplasComandaPorMesa
+        MultiplasComandaPorMesa,
+        [ValorEnum("CodigoPrefixoComanda")]
+        CodigoPrefixoComanda
     }
 }

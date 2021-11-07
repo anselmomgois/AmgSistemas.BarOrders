@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace AmgSistemas.BarOrders.BD.Models
 {
@@ -10,13 +11,19 @@ namespace AmgSistemas.BarOrders.BD.Models
     {
         public string ID_PRODUTO { get; set; }
         [ForeignKey("AGBO_TEMPRESA")]
+        [Required()]
         public string ID_EMPRESA { get; set; }
         [ForeignKey("AGBO_TGRUPO_PRODUTO")]
+        [Required()]
         public string ID_GRUPO_PRODUTO { get; set; }
+        [Required()]
         public string COD_PRODUTO { get; set; }
+        [Required()]
         public string DES_PRODUTO { get; set; }
         public string OBS_PRODUTO { get; set; }
+        [Required()]
         public bool BOL_ACTIVO { get; set; }
+        [Required()]
         public DateTime DTH_PRODUTO { get; set; }
         public byte[] BOL_IMAGEM { get; set; }
 

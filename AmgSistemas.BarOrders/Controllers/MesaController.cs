@@ -17,14 +17,14 @@ namespace AmgSistemas.BarOrders.Controllers
             _mesaServices = mesaServices;
         }
 
-        [HttpGet("{id}/{codigo}/{senha?}")]
-        public Models.RetornoGenerico Get(string id, string codigo, string senha)
+        [HttpGet("{id}/{codigo}/{identificadorEmpresa}/{identificadorFilial}/{senha?}")]
+        public Models.RetornoGenerico Get(string id, string codigo, string identificadorEmpresa, string identificadorFilial, string senha)
         {
             try
             {
                 Models.RetornoGenerico objRetorno = new Models.RetornoGenerico();
 
-                objRetorno.retorno = _mesaServices.Buscar(id, senha, codigo);
+                objRetorno.retorno = _mesaServices.Buscar(id, senha, codigo, identificadorEmpresa,identificadorFilial);
                 objRetorno.codigo = 0;
 
                 return objRetorno;
